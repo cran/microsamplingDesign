@@ -1,0 +1,11 @@
+parameter,value,coeffVariation,explanation
+F,1,0,bioavailability
+volumePlasma,10,0.2,volume of the central compartment (plasma)
+Cld,15,0.2,distribution parameter between central and peripheral  Compartment expressed in volume per time unit
+volumeTissue,15,0.2,volume of the peripheral compartment (tissue)
+VmaxAbsorption,5,0.2,maximum absorption rate ( absolute rate is rate per dose x dose)
+kappaMMAbsorption,2.5,0.2, Michaelis-Menten constant for absorption
+KaConstant,,0.2,constant absorption rate per unit of dose  (overrides Michealis-Menten kinetics)
+VmaxClearance,30,0.2,maximum clearance rate (absolute rate is rate per concentration x
+kappaMMClearance,0.25,0.2,concentration)
+ClConstant,,0.2,constant clearance rate ( overrides  Michealis-Menten kinetics )

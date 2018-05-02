@@ -1,0 +1,117 @@
+---
+title: Optimal Microsampling design non-compartmental analysis
+output: word_document
+fig_width: 12 
+---
+
+
+
+```{r , eval = FALSE , echo = FALSE  }
+
+#library(Pkdesign)
+#paramList                      <-  list()
+#model                          <-  getExamplePkModel() 
+#paramList$pkParameters         <-  getParameters( model )
+#paramList$kineticsPlot         <-  plotMMKinetics( model , doseRange = c( 0 , 10 ) , concentrationRange = c(0,5) )
+#settings                       <-  list( NsimTimePoints = 100 ,  nSimSchemes = 1000 , nSubjectsForTimePoints = 3 , weightAUC = 50 , weightCmax = 50  )
+#paramList$settings             <-  settings 
+#paramList$optimalTimePoints    <-  "{ 1, 2 , 3.5 , 8}" 
+#paramList$optimalScheme        <-  getExampleSetOfSchemes()[ ,, 1]
+
+```
+
+## Pharmacokinetic model
+
+
+
+### Input parameters
+
+```{r , , eval = TRUE ,  echo = FALSE}
+#paramList   <-  params$paramList
+knitr::kable( modelParametersTable()  )
+```
+
+
+### Absorption and clearance kinetics
+
+```{r , eval = TRUE , echo = FALSE }
+plot( MMKineticsPlot() )
+```
+
+### Dosing info
+
+
+```{r , eval = TRUE , echo = FALSE }
+knitr::kable( dosingInfoFormat() )
+```
+
+
+
+
+### Sample Curves
+
+```{r , eval = TRUE , echo = FALSE }
+plot( samplePlot() )
+```
+
+
+## Settings 
+
+
+
+### Constraints on time points
+
+
+```{r , eval = TRUE , echo = FALSE}
+tableToPrint          <-  timeConstraintsFormat()
+knitr::kable( tableToPrint )
+```
+
+### Constraints on schemes 
+
+
+```{r , eval = TRUE , echo = FALSE}
+schemeConstraintTable   <-  schemeConstraintsFormat()
+knitr::kable( schemeConstraintTable )
+```
+
+### Other settings 
+
+```{r , eval = TRUE , echo = FALSE}
+settings           <-  list(
+  nSamplesForTimePoints          =  input$nSamplesForTimePoints ,
+  nSubjectsPerSchemeTimePoints   =  input$nSubjectsPerSchemeTimePoints ,
+  nSamplesForSchemes             =  input$nSamplesForSchemes ,
+  weightAUC                      =  input$wAUC ,
+  weightCMax                     =  input$wCmax 
+  )
+settingsTable      <-  data.frame(  Setting = names( settings ) , Value = unlist( settings ) )
+rownames( settingsTable ) <-  NULL
+knitr::kable( settingsTable )
+```
+
+
+
+## Optimal design
+
+### Time points
+
+```{r , eval = TRUE , echo = FALSE }
+knitr::kable( selectedTimePointOption() )
+
+```
+
+### Scheme 
+
+
+```{r , eval = TRUE , echo = FALSE }
+knitr::kable( selectedScheme() )
+```
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+---
+title: "Report with Data and Plot"
+output: 
+  html_document:
+    df_print: paged
+---
+
+# Data
+ 
+```{r data, echo = FALSE, message = FALSE}
+library(DT)
+DT::datatable(results$plot_data())
+```
+
+# Plot
+
+```{r plot, echo = FALSE}
+library(plotly)
+
+if (is.null(input$plot_submit))
+  return(NULL)
+
+if (input$plot_submit == 0)
+  return(NULL)  
+
+marginList <- list(
+    l = input$plot_marginL,
+    r = input$plot_marginR,
+    t = input$plot_marginT,
+    b = input$plot_marginB)
+
+
+if (results$plot_is3D()) {
+  
+  results$plot_view() %>% 
+      layout(scene = list(xaxis = list(title = input$plot_xLabel), 
+              yaxis = list(title = input$plot_yLabel), 
+              zaxis = list(title = input$plot_zLabel)), 
+          title = input$plot_title, showlegend = input$plot_legend,
+          margin = marginList)  
+  
+} else {
+  
+  results$plot_view() %>% 
+      layout(xaxis = list(title = input$plot_xLabel), 
+          yaxis = list(title = input$plot_yLabel), 
+          title = input$plot_title, showlegend = input$plot_legend,
+          margin = marginList)  
+  
+}
+```
+
