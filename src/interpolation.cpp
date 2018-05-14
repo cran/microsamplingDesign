@@ -58,10 +58,6 @@ std::vector<double>  interpolateVec(  std::vector<double> &xData,  std::vector<d
 
 // [[Rcpp::export]]
 arma::colvec getFixedSchemePerformanceCpp( arma::mat  popAvCurves , arma::colvec times  ){
-	int nTimes ;
-	nTimes           =  times.size();
-	int nCurves ;
-//	nCurves          =  popAvCurves.n_rows() ;
 	int NCRITERIA ;
 	NCRITERIA        = 2 ;
 	arma::mat resultMat ;

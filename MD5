@@ -1,9 +1,9 @@
-aa6b0ff89dcfbdd6cac4ec0df5212603 *DESCRIPTION
-a93115250db032222666ee4de163034f *NAMESPACE
+cf44ec99c5fe023511eedce3e62a9949 *DESCRIPTION
+457b9ad60a39abed27e22a022fa014f3 *NAMESPACE
 43c2906ab16a1e1bf775633c99e5d8c4 *NEWS
 b84048c758b4866ea348c6d099d90486 *R/RcppExports.R
 9b63eb5a807f07305e1fdba7192286c0 *R/aaaGenerics.R
-98c0a4eae75f3931e9aef9de04b75bfd *R/appFunctions.R
+b0119e08e8fabd1e061f57d0b5671383 *R/appFunctions.R
 a5dd07291fb21cc68d82e98752e45257 *R/constraintFunctions.R
 0f378173705482882eea292035f67df6 *R/fastRankSchemes.R
 6ff397ed723e50bf1e5acfeffa70f36e *R/internalHelpers.R
@@ -46,7 +46,7 @@ f52a10707117ec5d69863e41451a62a6 *inst/dataForTesting/seed.rds
 e9a71f4153da810688bd71fd062ea728 *inst/dataForTesting/setOfSchemes.rds
 004c93283e8cb95936048684b1f0be40 *inst/doc/microsamplingDesign.R
 ce816a15a116df0b5042c87afe190b3d *inst/doc/microsamplingDesign.Rmd
-59a3bc563a40841dfd9e4214e78db8f3 *inst/doc/microsamplingDesign.pdf
+c5d200829b46d8b0e65317fe06bdfba2 *inst/doc/microsamplingDesign.pdf
 f14fbfe512db96840d9747abfa971985 *inst/extData/exampleDosingInfo.csv
 107a51ac81cacfbad4464e5771c34549 *inst/extData/exampleDosingInfo_1dose.csv
 f3a8342954017e9bea77c74fa80e1196 *inst/extData/examplePkModel/examplePkParameters_diffCV.csv
@@ -140,7 +140,7 @@ df357ef3ccc56cc3a99de982d8e2a3d7 *man/summary-SetOfSchemes-method.Rd
 4d751a816a417548d9de308ba62c3ba7 *src/Makevars
 4d751a816a417548d9de308ba62c3ba7 *src/Makevars.win
 2417e9a4ee7372d42094a3d5521fc7b7 *src/RcppExports.cpp
-9382659c33ce50351eb95a727de5aeb5 *src/interpolation.cpp
+9164a79467240738b324b9afd7e4336d *src/interpolation.cpp
 e8bdb280c0e403060753e54f7215e919 *tests/testthat.R
 6749f3349f851bde3ab5545e86000edf *tests/testthat/testDataGeneration.R
 09f37f446b4fe77f760405809e2280a6 *tests/testthat/testPkRange.R

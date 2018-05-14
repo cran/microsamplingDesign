@@ -80,7 +80,7 @@
 #' @return no return value
 #' @import shiny
 #' @importFrom devtools install_github dev_package_deps
-#' @importFrom utils update.packages
+#' @importFrom stats update
 #' @export
 runMicrosamplingDesignApp         <- function( installDependencies = FALSE, ... ) {
   
@@ -88,7 +88,8 @@ runMicrosamplingDesignApp         <- function( installDependencies = FALSE, ... 
   if (installDependencies) {
     
     ## (a) CRAN packages
-    update.packages(dev_package_deps(pkg = system.file("apps/microsamplingDesignApp", package = "microsamplingDesign"), 
+    
+    update(dev_package_deps(pkg = system.file(package = "microsamplingDesign" ), 
         dependencies = "Suggests"))
     
     
