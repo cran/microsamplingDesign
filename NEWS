@@ -1,3 +1,9 @@
-
+## version 1.0.5
+    # change random number generation using cholesky decomposition instead of eigenvalue decomposition
+    # remove write down options, only useful for debugging
+## version 1.0.3
+    # debugging option in data generation, to test over platforms 
+        * fix seed type
+        * add option to write down intermediate output to debug data generation
 ## version 1.0.0
     # first version for CRAN with vignette

@@ -6,17 +6,17 @@
 ###                                                                        ###
 ###                                                                        ###
 ###                                                                        ###
-### Author: ablommaert                                                        ### 
+### Author: ablommaert                                                     ### 
 ###         <adriaan.blommaert@openanalytics.eu>                           ###
 ###                                                                        ###
 ###                                                                        ###
-### Maintainer:ablommaert                                                     ###
+### Maintainer:ablommaert                                                  ###
 ###       <adriaan.blommaert@openanalytics.eu>                             ###
 ###                                                                        ###  
 ###                                                                        ###
-### version 0.1                                                            ###
+### version 1.0.4                                                          ###
+###     * debugging write down in addAdditiveErrorToPkMatrix               ###
 ###                                                                        ###
-### changes:                                                               ###
 ###                                                                        ###
 ###                                                                        ###
 ##############################################################################
@@ -119,12 +119,34 @@ if( 0 == 1 ) {
 
 
 addAdditiveErrorToPkMatrix             <-  function( pkMatrix , coeffVariation , timeCorrelation ) {
+  
+  boolWriteDown                         <-  FALSE  # for debugging on different systems 
+  dirIntermediateOutput                 <-  ""
+  
   nTotalSubjects                        <-  nrow( pkMatrix )
   nTimePoints                           <-  nrow( timeCorrelation )
   sigmaMatrix                           <-  coeffVariation * pkMatrix 
-  standardNormalDraws                   <-  mvrnorm( n = nTotalSubjects , mu = rep(0 , nTimePoints ),  Sigma = timeCorrelation  )
   
+  if( boolWriteDown ){
+    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedStartAddError_addError.rds")  )     
+    
+  }
+  
+  
+#  standardNormalDraws                   <-  mvrnorm( n = nTotalSubjects , mu = rep(0 , nTimePoints ),  Sigma = timeCorrelation  )
+  standardNormalDraws                   <-  genMVN( n = nTotalSubjects , mu = rep(0 , nTimePoints ),  Sigma = timeCorrelation  )
+    
   pkMatWithError                        <-  pkMatrix + sigmaMatrix * standardNormalDraws 
+  
+  
+  if( boolWriteDown ){
+    saveRDS( object = sigmaMatrix , file.path( dirIntermediateOutput , "sigmaMatrix_addError.rds")  ) 
+    saveRDS( object = timeCorrelation , file.path( dirIntermediateOutput , "timeCorrelation_addError.rds")  ) 
+    saveRDS( object = standardNormalDraws  , file.path( dirIntermediateOutput , "standardNormalDraws_addError.rds")  ) 
+    saveRDS( object = pkMatWithError , file.path( dirIntermediateOutput , "pkMatWithError_addError.rds")  ) 
+    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedEndAddError_addError.rds")  )     
+  }
+  
   return( pkMatWithError )
 }
 
@@ -169,6 +191,7 @@ putPkDataInSchemeForm         <-  function( pkDataMatrix , nSubjectsPerScheme ) 
 #' @param nDraws the combination size
 #' @param maxRepetitions the number of times an element of the \code{sampleVector} can occur in a group
 #' @param nCombinationsOnly if TRUE it returns the number of combinations instead of the combinations itself, defaults to FALSE
+#' @importFrom Rcpp evalCpp
 #' @return a matrix with as a combination per row, unless \code{nCombinationsOnly} is \code{TRUE}
 #' @examples 
 #' test1    <-  getCombinationsWithMaxNRepetitions( c("a" , "b" , "c" ) ,
@@ -266,5 +289,39 @@ getCombinationsWithMaxNRepetitions    <-  function( sourceVector , nDraws , maxR
    dataFlattened                   <-  cbind( infoColumns , dataFlat ) 
  }
  
+ 
+ 
+
+ 
+ #' Internal function to generate multivariate data via a cholesky decompostion ( to have replicability accross systems )
+ #' 
+ #' @param n number of sample to take
+ #' @param mu mean vector
+ #' @param Sigma covariance matrix
+ #' @keywords internal 
+ genMVN                 <-  function(n, mu, Sigma ){
+   ## obtain number of variables
+   numVar               <-  length( mu )
+   ## generate independent data
+   indData              <-  matrix( rnorm(n*numVar),n , numVar )
+ ## find the Cholesky decomposition of the covariance matrix
+ choleskyDecompSigma    <- chol(Sigma)
+ ## make the indepedent data dependent
+ genData                <- ( indData%*% choleskyDecompSigma) + mu[col(indData%*% choleskyDecompSigma)]
+ return(genData)
+ }
+ 
+# ## a simple simulation to evaluate the method
+# estCov <- NULL
+# estMean <- matrix( 0 , 1000, 3)
+# for (iTest in 1:1000){
+#   generatedMVN <- genMVN(1000, mu, sigmaMat)
+#   estCov[[iTest]] <- cov(generatedMVN)
+#   estMean[iTest, ] <- apply(generatedMVN, 2, mean)
+# }
+# 
+# estMean - mu
+# estCov- sigmaMat
+# 
  
  

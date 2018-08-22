@@ -6,8 +6,8 @@
 
 boolRegenerateTests     <-  FALSE
 cat("Regererate data for testing =  " , boolRegenerateTests , "\n")
-#testDataDirectory       <-  "/home/ablommaert/git/microsamplingDesign/microsamplingDesign/tests/dataForTesting"
-testDataDirectory       <-  "../dataForTesting"
+testDataDirectory       <-  "/home/ablommaert/git/microsamplingDesign/microsamplingDesign/inst/dataForTesting"
+#testDataDirectory       <-  "../dataForTesting"
 seed                    <-  1234
 
 

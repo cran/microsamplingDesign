@@ -24,17 +24,17 @@ rankTimePointsOrig          <-  readRDS( rankTimePointsFile )
 ### generate new data 
 
 
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 fullTimePoints             <-  0:10
 setOfTimePoints            <-  getExampleSetOfTimePoints( fullTimePoints)
 pkDataExample              <-  getPkData( getExamplePkModel() , getTimePoints( setOfTimePoints ) ,  nSubjectsPerScheme = 5 , nSamples = 17   )
-set.seed( seed ) # reset seed, because sampling going on inside
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNew        <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 13)
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNew2        <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 13)
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNewDiffGrid    <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 10 , nSamplesAvCurve = 13)
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNewDiffCurves    <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 20)
 
 ### execute tests 

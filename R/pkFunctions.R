@@ -582,6 +582,20 @@ if( 0 == 1 ) {
   nSubjectsPerScheme      <-  3
   nSamples                <-  7
   errorCorrelationMatrixIntime = diag( 1 , length( timePoints ) )  
+  dirIntermediateOutput        <- "/home/ablommaert/Desktop/compare/microsamplDebug" 
+  
+  # test differences in cores on ramdom number generation 
+  set.seed( 1235 )
+  test1 <-  getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 3 , nSamples = 4 , nCores = 1 )
+  set.seed( 1235 )
+  test2 <-  getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 3 , nSamples = 4 , nCores = 2 )
+  set.seed( 1235 )
+  test3 <-  getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 3 , nSamples = 4 , nCores = 3 )
+  
+ identical( getData( test1 ) , getData( test2 ) ) 
+ identical( getData( test1 ) , getData( test3 ) )  # no influence number of cores on random data generation
+ 
+  
 }
 
 #' simulate \code{\link{PkData-class}} from \code{\link{PkModel-class}}
@@ -600,7 +614,18 @@ if( 0 == 1 ) {
 #'   getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 7 , nSamples = 1  ) 
 #' @export
 getPkData                      <-  function( pkModel , timePoints , nSubjectsPerScheme , nSamples , errorCorrelationMatrixIntime = diag( 1 , length( timePoints ) ) , nCores = 1  ) {
-
+  
+#  boolWriteDown                <<-  ! is.null( dirIntermediateOutput ) 
+#  dirIntermediateOutput        <<- dirIntermediateOutput
+  
+  
+     # debug write down 
+  boolWriteDown   <-  FALSE
+  dirIntermediateOutput <-  ""
+#  if( boolWriteDown ){
+#    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState0.rds")  )
+#  }
+  
  
   ## extract info for calculation
   nTimePoints                  <-  length( timePoints )
@@ -676,6 +701,11 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
   individualParamNoSample      <-  replicateVectorRows( paramNoSample , nTotalSubjects )
   colnames( individualParamNoSample )  <-  names( paramNoSample )
   
+  
+  # debug write down 
+  if( boolWriteDown ){
+    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState1.rds")  )
+  }
     
   ## simulate subject specific parameters (of nonNA parameters)
   boolNoParam                  <-  ( length( parameterVectorNoNA ) == 0 )
@@ -688,13 +718,19 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
     allIndividualParameters     <-  individualParamNoSample
   }
 
- 
+  # debug write down 
+  if( boolWriteDown ){
+    saveRDS( object = allIndividualParameters , file.path( dirIntermediateOutput , "indivParameters.rds")  )
+    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState2.rds")  )
+    
+  }
+  
 
   # get individual curves 
        # replaced by parellel processing 
 
 #  
-#  # TODO parellize there 
+#  Parallelization here
 
  if( nCores == 1 ){
    indParamList                 <-  convertMatrixRowsToList( allIndividualParameters )
@@ -712,11 +748,14 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
    individualPkCurves           <-  matrix( individualPkCurvesVec , byrow = TRUE , nrow = nTotalSubjects)
 }
   
-
+  # debug write down 
+   if( boolWriteDown ){
+     saveRDS( object = individualPkCurves , file.path( dirIntermediateOutput , "individualPkCurves.rds")  ) 
+     saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState3.rds")  ) 
+  }
 
   
-  
-  ## subset on originaltime points (get out dosing times )
+  ## subset on original time points (get out dosing times )
   if( ! boolDosingTimesInTimePoints  ) {
     individualPkCurvesTimeSelect  <- individualPkCurves[ , !indTimePointsOnlyDose ]  
   } else {
@@ -726,11 +765,24 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
   ##  output formatting
   colnames( individualPkCurvesTimeSelect )  <-  paste0( "timePoint" , 1:nTimePoints )
   
-  ## add additive error
+  ## add additive error # TODO difference here check all inputs
+  if( boolWriteDown ){
+    saveRDS( object = individualPkCurvesTimeSelect , file.path( dirIntermediateOutput , "individualPkCurvesTimeSelect.rds")  ) 
+    saveRDS( object = getCoeffVariationError( pkModel ) , file.path( dirIntermediateOutput , "coeffVarError.rds")  ) 
+    saveRDS( object = errorCorrelationMatrixIntime , file.path( dirIntermediateOutput , "errorCorrelationMatrixIntime.rds")  )    
+  }
+  
   individualCurvesWithError                 <-  addAdditiveErrorToPkMatrix( individualPkCurvesTimeSelect ,
       coeffVariation  = getCoeffVariationError( pkModel ) ,
       timeCorrelation = errorCorrelationMatrixIntime      
       )
+      
+      
+      # debug write down 
+      if( boolWriteDown ){
+        saveRDS( object = individualCurvesWithError , file.path( dirIntermediateOutput , "individualCurvesWithError.rds")  ) 
+        saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState4.rds")  ) 
+      } 
   
   
   dataArray                    <-  array( individualCurvesWithError , dim = c( nSubjectsPerScheme , nSamples , nTimePoints  )  )
@@ -874,7 +926,9 @@ getIndividualParameters    <-  function( meanParam , coeffVariation , nSubjects 
 #    stop("corrMatrix not positive definite" )
 #  }
 #  
-  standardNormalDraws      <-   mvrnorm( n = nSubjects , mu = rep( 0 , nParameters) , Sigma = corrMatrix )
+#  standardNormalDraws      <-   mvrnorm( n = nSubjects , mu = rep( 0 , nParameters) , Sigma = corrMatrix )
+  standardNormalDraws      <-   genMVN( n = nSubjects , mu = rep( 0 , nParameters) , Sigma = corrMatrix )
+  
    ##  fix dimensions to output dimension
   muMat                    <-  replicateVectorRows( mu , nSubjects  )
   sigmaMat                 <-  replicateVectorRows( sigma , nSubjects )

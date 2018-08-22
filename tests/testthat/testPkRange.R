@@ -58,7 +58,7 @@ seed                             <-  readRDS( seedFile )
 
 
 
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 setOfSchemesExample    <-  getExampleSetOfSchemes()
 pkModelRange           <-  getExamplePkModelRange()
 
@@ -78,7 +78,7 @@ test_that( "rankObjectwithRange functioning on SetofSchemes" , {
 # different baseline setting
     testDirectory1         <-  file.path( tempdir() , "test1" )
     dir.create( testDirectory1 )
-    set.seed( seed )   
+    set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     rankSetOfSchemeswithRangeDiff     <-  rankObjectWithRange( object = setOfSchemesExample , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "max" ,  directory  = testDirectory1 , varianceMeasure = "sd" , objective = getExampleObjective()  )
 #safeAsRds( "rankSetOfSchemeswithRange" )
     unlink( testDirectory1 , recursive = TRUE )
@@ -86,7 +86,7 @@ test_that( "rankObjectwithRange functioning on SetofSchemes" , {
     
     testDirectory1         <-  file.path( tempdir() , "test1" )
     dir.create( testDirectory1 )
-    set.seed( seed )   
+    set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     rankSetOfSchemeswithRangeDiffSum   <-  rankObjectWithRange( object = setOfSchemesExample , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "mean" ,  directory  = testDirectory1 , varianceMeasure = "sd" , objective = getExampleObjective()  )
     unlink( testDirectory1 , recursive = TRUE )
     
@@ -115,7 +115,7 @@ test_that( "rankObjectwithRange functioning on SetofSchemes" , {
 
 #rankSetOfTimePointsWithRangeOrig        <-  getRdsFile( "rankSetOfTimePointsWithRange" )
 #seed                            <-  getRdsFile( "seed" )
-set.seed( seed )
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 timePoints          <-  getExampleSetOfTimePoints( 0:10 )
 
 
@@ -127,11 +127,11 @@ test_that( "rankObjectwithRange functioning on SetOfTimePoints" , {
     
     testDirectory2      <-  file.path( tempdir() , "test2" )
     dir.create( testDirectory2 )
-    set.seed( seed )   
+    set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     rankSetOfTimePointsWithRangeNew  <- rankObjectWithRange( object = timePoints , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "max" ,  directory  = testDirectory2 , nGrid = 20 , nSamplesAvCurve = 25 , nSubjectsPerScheme = 3 )
     unlink( testDirectory2 , recursive = TRUE )
     
-    set.seed( seed )
+    set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     testDirectory2      <-  file.path( tempdir() , "test2" )
     dir.create( testDirectory2 )
     rankSetOfTimePointsWithRangeDiff <- rankObjectWithRange( object = timePoints , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "min" ,  directory  = testDirectory2 , nGrid = 20 , nSamplesAvCurve = 25 , nSubjectsPerScheme = 3 )

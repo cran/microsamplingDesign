@@ -1,6 +1,7 @@
 # Project: microsamplingDesign
 # 
 # Author: ablommaert
+# changes, 1.0.3: setting seed kind, and performing tests on windows
 ###############################################################################
 
 
@@ -21,7 +22,7 @@ pkDataOrig              <-  readRDS( pkDataOrigFile )
 
 ### generate New data ( same inputs, tests for same outputs )
 
-set.seed( seed ) 
+set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 pkModel                 <-  getExamplePkModel()
 times                   <-  c( 0 , 0.1 , 0.5 , 2 , 15 )
 nTimes                  <-  length( times )
@@ -32,7 +33,7 @@ pkDataNew               <-  getPkData( getExamplePkModel() , times , nSubjectsPe
 ### execute tests 
 
 test_that("getIndividualParam is unbiased" , {
-     set.seed( seed )
+    set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     expect_true( mean( getIndividualParameters( 1 , 0.2 , 100000 ) ) <  1.001 )
   }
 )
@@ -58,7 +59,7 @@ test_that( "Identical dimensions" , {
 )
 
 test_that( "Equal data" , {
-    testthat::skip_on_os("windows") # random data generation not equal on window as on linux
+#    testthat::skip_on_os("windows") # random data generation not equal on window as on linux
     expect_equal( dataOrig , dataNew )
   }
 )
