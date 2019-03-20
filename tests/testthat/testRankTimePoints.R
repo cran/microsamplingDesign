@@ -23,17 +23,21 @@ rankTimePointsOrig          <-  readRDS( rankTimePointsFile )
 
 ### generate new data 
 
-
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 fullTimePoints             <-  0:10
 setOfTimePoints            <-  getExampleSetOfTimePoints( fullTimePoints)
 pkDataExample              <-  getPkData( getExamplePkModel() , getTimePoints( setOfTimePoints ) ,  nSubjectsPerScheme = 5 , nSamples = 17   )
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNew        <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 13)
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNew2        <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 13)
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNewDiffGrid    <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 10 , nSamplesAvCurve = 13)
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 rankedTimePointsNewDiffCurves    <-  rankObject( object = setOfTimePoints , pkData = pkDataExample , nGrid = 75 , nSamplesAvCurve = 20)
 

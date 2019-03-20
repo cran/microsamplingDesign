@@ -3,13 +3,10 @@
 \name{pkCurveStat}
 \alias{pkCurveStat}
 \alias{pkCurveStat_auc}
-\alias{pkCurveStat}
 \alias{auc}
 \alias{pkCurveStat_cMax}
-\alias{pkCurveStat}
 \alias{cMax}
 \alias{pkCurveStat_tMax}
-\alias{pkCurveStat}
 \alias{tMax}
 \title{calculate summary statistics from a pkCurve}
 \usage{

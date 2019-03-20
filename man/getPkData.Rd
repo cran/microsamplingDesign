@@ -5,7 +5,8 @@
 \title{simulate \code{\link{PkData-class}} from \code{\link{PkModel-class}}}
 \usage{
 getPkData(pkModel, timePoints, nSubjectsPerScheme, nSamples,
-  errorCorrelationMatrixIntime = diag(1, length(timePoints)), nCores = 1)
+  errorCorrelationMatrixIntime = diag(1, length(timePoints)),
+  nCores = 1, dirIntermediateOutput = NULL)
 }
 \arguments{
 \item{pkModel}{an object of \code{\link{PkModel-class}}}
@@ -19,6 +20,8 @@ getPkData(pkModel, timePoints, nSubjectsPerScheme, nSamples,
 \item{errorCorrelationMatrixIntime}{the correlation between additive error terms within a subject, by default no correlation}
 
 \item{nCores}{number of cores used for parallel computing, defaults to 1 (remark no random numbers are generated in parallel)}
+
+\item{dirIntermediateOutput}{directory to write intermediate output to for debugging, defaults to NULL, when no intermediate output is written down}
 }
 \value{
 \code{\link{PkData-class}} object

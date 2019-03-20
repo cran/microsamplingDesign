@@ -14,25 +14,24 @@ virtual class, for testing \code{\link{PkModel-class}} and \code{\link{PkModelRa
 
 \item{\code{parameters}}{a data.frame of parameters of mean parameters as input to the modelFunction
 with columns:
-\itemize{
-    \item parameter: parameter name for 
-    \item explanation: optional explantion
-    \item value: fixed parameter value for \code{\link{PkModel-class}},
-      for\code{\link{PkModel-class}} split up between \code{minValue} and \code{maxValue}               
-    \item coeffVariation the coefficient of variation (  standard deviation / mean ) specifying between-subject variation,
-         for \code{\link{PkModelRange-class}}  split up into \code{minValue} and \code{maxValue}  
-}}
+    \itemize{
+      \item parameter: parameter name for 
+      \item explanation: optional explantion
+      \item value: fixed parameter value for \code{\link{PkModel-class}},
+      for \code{\link{PkModel-class}} split up between \code{minValue} and \code{maxValue}               
+      \item coeffVariation: the coefficient of variation (  standard deviation / mean ) specifying between-subject variation,
+      for \code{\link{PkModelRange-class}}  split up into \code{minValue} and \code{maxValue}  
+    }}
 
 \item{\code{correlationMatrix}}{correlation matrix of parameters at the log-scale}
 
-\item{\code{coeffVariationError}}{the coefficient of variation for residual normally distributed error, if 
-for \code{\link{PkModelRange-class}}  split up into \code{minCoeffVariationError} and \code{maxCoeffVariationError}}
-
-\item{\code{dosingInfo}}{data frame containing:
- \itemize{
-  \item time numeric,  times when a dose is administered
-  \item dose numeric, with an amount of dose 
-}}
+\item{\code{coeffVariationError}}{the coefficient of variation for residual normally distributed error, 
+  for \code{\link{PkModelRange-class}}  split up into \code{minCoeffVariationError} and \code{maxCoeffVariationError} 
+@slot dosingInfo data frame containing:
+      \itemize{
+        \item time numeric,  times when a dose is administered
+        \item dose numeric, with an amount of dose 
+      }}
 }}
 
 \author{

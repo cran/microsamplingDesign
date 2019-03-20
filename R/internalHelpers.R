@@ -119,18 +119,14 @@ if( 0 == 1 ) {
 
 
 addAdditiveErrorToPkMatrix             <-  function( pkMatrix , coeffVariation , timeCorrelation ) {
-  
-  boolWriteDown                         <-  FALSE  # for debugging on different systems 
-  dirIntermediateOutput                 <-  ""
-  
   nTotalSubjects                        <-  nrow( pkMatrix )
   nTimePoints                           <-  nrow( timeCorrelation )
   sigmaMatrix                           <-  coeffVariation * pkMatrix 
   
-  if( boolWriteDown ){
-    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedStartAddError_addError.rds")  )     
-    
-  }
+#  if( boolWriteDown ){
+#    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedStartAddError_addError.rds")  )     
+#    
+#  }
   
   
 #  standardNormalDraws                   <-  mvrnorm( n = nTotalSubjects , mu = rep(0 , nTimePoints ),  Sigma = timeCorrelation  )
@@ -138,14 +134,14 @@ addAdditiveErrorToPkMatrix             <-  function( pkMatrix , coeffVariation ,
     
   pkMatWithError                        <-  pkMatrix + sigmaMatrix * standardNormalDraws 
   
-  
-  if( boolWriteDown ){
-    saveRDS( object = sigmaMatrix , file.path( dirIntermediateOutput , "sigmaMatrix_addError.rds")  ) 
-    saveRDS( object = timeCorrelation , file.path( dirIntermediateOutput , "timeCorrelation_addError.rds")  ) 
-    saveRDS( object = standardNormalDraws  , file.path( dirIntermediateOutput , "standardNormalDraws_addError.rds")  ) 
-    saveRDS( object = pkMatWithError , file.path( dirIntermediateOutput , "pkMatWithError_addError.rds")  ) 
-    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedEndAddError_addError.rds")  )     
-  }
+#  
+#  if( boolWriteDown ){
+#    saveRDS( object = sigmaMatrix , file.path( dirIntermediateOutput , "sigmaMatrix_addError.rds")  ) 
+#    saveRDS( object = timeCorrelation , file.path( dirIntermediateOutput , "timeCorrelation_addError.rds")  ) 
+#    saveRDS( object = standardNormalDraws  , file.path( dirIntermediateOutput , "standardNormalDraws_addError.rds")  ) 
+#    saveRDS( object = pkMatWithError , file.path( dirIntermediateOutput , "pkMatWithError_addError.rds")  ) 
+#    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedEndAddError_addError.rds")  )     
+#  }
   
   return( pkMatWithError )
 }
@@ -191,7 +187,6 @@ putPkDataInSchemeForm         <-  function( pkDataMatrix , nSubjectsPerScheme ) 
 #' @param nDraws the combination size
 #' @param maxRepetitions the number of times an element of the \code{sampleVector} can occur in a group
 #' @param nCombinationsOnly if TRUE it returns the number of combinations instead of the combinations itself, defaults to FALSE
-#' @importFrom Rcpp evalCpp
 #' @return a matrix with as a combination per row, unless \code{nCombinationsOnly} is \code{TRUE}
 #' @examples 
 #' test1    <-  getCombinationsWithMaxNRepetitions( c("a" , "b" , "c" ) ,

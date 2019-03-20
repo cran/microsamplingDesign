@@ -1,7 +1,7 @@
 Package: microsamplingDesign
 Title: Finding Optimal Microsampling Designs for Non-Compartmental
         Pharmacokinetic Analysis
-Version: 1.0.5
+Version: 1.0.6
 License: GPL-3
 Authors@R: c( person("Adriaan", "Blommaert", role = c("aut", "cre"),
                      email = "adriaan.blommaert@openanalytics.eu"),
@@ -26,14 +26,14 @@ Description:
   web application is included, which guides users from model parametrization to
   optimal microsampling scheme.   
 URL: http://www.openanalytics.eu
-Depends: R (>= 3.4.0),
+Depends: R (>= 3.4.0), Rcpp
 Imports: abind, deSolve, devtools, ggplot2, gridExtra, gtools, knitr,
         MASS, matrixStats, matrixcalc, methods, parallel, plyr, readr,
-        reshape2, Rcpp, shiny, stats, stringr, utils
+        reshape2, shiny, stats, stringr, utils
 LinkingTo: Rcpp, RcppArmadillo
 ByteCompile: true
 LazyLoad: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Suggests: bookdown, data.table, plotly, shinyjs, shinyBS, rmarkdown,
         rhandsontable, shinycssloaders, testthat
 Collate: 'RcppExports.R' 'aaaGenerics.R' 'appFunctions.R'
@@ -45,7 +45,7 @@ Collate: 'RcppExports.R' 'aaaGenerics.R' 'appFunctions.R'
         'timePointGeneration.R'
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2018-08-21 08:06:18 UTC; ablommaert
+Packaged: 2019-03-20 14:51:53 UTC; ablommaert
 Author: Adriaan Blommaert [aut, cre],
   Daan Seynaeve [ctb],
   Helen Barnett [ctb],
@@ -54,4 +54,4 @@ Author: Adriaan Blommaert [aut, cre],
   Fetene Tekle [ctb],
   Thomas Jaki [ctb]
 Repository: CRAN
-Date/Publication: 2018-08-22 16:30:09 UTC
+Date/Publication: 2019-03-20 15:50:03 UTC

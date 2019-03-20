@@ -1,6 +1,7 @@
+## version 1.0.6
+   # in test add suppressWarnings(RNGversion("3.5.0")) before setting seeds to avoid issues with change in random number generator
 ## version 1.0.5
     # change random number generation using cholesky decomposition instead of eigenvalue decomposition
-    # remove write down options, only useful for debugging
 ## version 1.0.3
     # debugging option in data generation, to test over platforms 
         * fix seed type

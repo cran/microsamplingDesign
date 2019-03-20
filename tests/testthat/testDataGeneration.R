@@ -6,6 +6,7 @@
 
 
 testthat::context("Data generation")
+suppressWarnings(RNGversion("3.5.0"))
 
 #source( "/home/ablommaert/git/microsamplingDesign/microsamplingDesign/tests/testthat/beforeTesting.R" )
 #source( "../testthat/beforeTesting.R" )
@@ -21,7 +22,7 @@ pkDataOrig              <-  readRDS( pkDataOrigFile )
 
 
 ### generate New data ( same inputs, tests for same outputs )
-
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 pkModel                 <-  getExamplePkModel()
 times                   <-  c( 0 , 0.1 , 0.5 , 2 , 15 )
@@ -33,6 +34,7 @@ pkDataNew               <-  getPkData( getExamplePkModel() , times , nSubjectsPe
 ### execute tests 
 
 test_that("getIndividualParam is unbiased" , {
+      suppressWarnings(RNGversion("3.5.0"))
     set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     expect_true( mean( getIndividualParameters( 1 , 0.2 , 100000 ) ) <  1.001 )
   }

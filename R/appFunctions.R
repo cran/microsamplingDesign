@@ -89,7 +89,7 @@ runMicrosamplingDesignApp         <- function( installDependencies = FALSE, ... 
     
     ## (a) CRAN packages
     
-    update(dev_package_deps(pkg = system.file(package = "microsamplingDesign" ), 
+    update(dev_package_deps( pkgdir = system.file(package = "microsamplingDesign" ), 
         dependencies = "Suggests"))
     
     

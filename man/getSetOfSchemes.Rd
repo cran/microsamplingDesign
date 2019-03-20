@@ -5,9 +5,9 @@
 \title{Generate a  \code{\link{SetOfSchemes-class}} object of speficified dimensions ( subjects, observations per t) for a given 
 set of time points which  meets user specified constraints}
 \usage{
-getSetOfSchemes(minNSubjects, maxNSubjects, minObsPerSubject, maxObsPerSubject,
-  timePoints, constraints = NULL, maxRepetitionIndSchemes = 1,
-  maxNumberOfSchemesBeforeChecks = 10^5,
+getSetOfSchemes(minNSubjects, maxNSubjects, minObsPerSubject,
+  maxObsPerSubject, timePoints, constraints = NULL,
+  maxRepetitionIndSchemes = 1, maxNumberOfSchemesBeforeChecks = 10^5,
   returnNSchemesBeforeConstraints = FALSE)
 }
 \arguments{

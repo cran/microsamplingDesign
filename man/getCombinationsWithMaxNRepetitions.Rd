@@ -4,8 +4,8 @@
 \alias{getCombinationsWithMaxNRepetitions}
 \title{get all combinations with a maximum number of repetitions}
 \usage{
-getCombinationsWithMaxNRepetitions(sourceVector, nDraws, maxRepetitions = 1,
-  nCombinationsOnly = FALSE)
+getCombinationsWithMaxNRepetitions(sourceVector, nDraws,
+  maxRepetitions = 1, nCombinationsOnly = FALSE)
 }
 \arguments{
 \item{sourceVector}{is a vector with options to draw from}

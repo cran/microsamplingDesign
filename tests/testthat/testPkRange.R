@@ -57,7 +57,7 @@ seed                             <-  readRDS( seedFile )
 
 
 
-
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 setOfSchemesExample    <-  getExampleSetOfSchemes()
 pkModelRange           <-  getExamplePkModelRange()
@@ -78,6 +78,7 @@ test_that( "rankObjectwithRange functioning on SetofSchemes" , {
 # different baseline setting
     testDirectory1         <-  file.path( tempdir() , "test1" )
     dir.create( testDirectory1 )
+    suppressWarnings(RNGversion("3.5.0"))
     set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     rankSetOfSchemeswithRangeDiff     <-  rankObjectWithRange( object = setOfSchemesExample , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "max" ,  directory  = testDirectory1 , varianceMeasure = "sd" , objective = getExampleObjective()  )
 #safeAsRds( "rankSetOfSchemeswithRange" )
@@ -86,6 +87,7 @@ test_that( "rankObjectwithRange functioning on SetofSchemes" , {
     
     testDirectory1         <-  file.path( tempdir() , "test1" )
     dir.create( testDirectory1 )
+    suppressWarnings(RNGversion("3.5.0"))
     set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
     rankSetOfSchemeswithRangeDiffSum   <-  rankObjectWithRange( object = setOfSchemesExample , pkModelRange ,  nSim = 13  ,  summaryFunctionOverScenarios = "mean" ,  directory  = testDirectory1 , varianceMeasure = "sd" , objective = getExampleObjective()  )
     unlink( testDirectory1 , recursive = TRUE )

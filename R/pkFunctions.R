@@ -606,6 +606,7 @@ if( 0 == 1 ) {
 #' @param nSamples number of datasets to sample 
 #' @param errorCorrelationMatrixIntime the correlation between additive error terms within a subject, by default no correlation
 #' @param nCores number of cores used for parallel computing, defaults to 1 (remark no random numbers are generated in parallel)
+#' @param dirIntermediateOutput directory to write intermediate output to for debugging, defaults to NULL, when no intermediate output is written down
 #' @return \code{\link{PkData-class}} object  
 #' @importFrom MASS mvrnorm
 #' @importFrom parallel parRapply makeCluster stopCluster 
@@ -613,19 +614,18 @@ if( 0 == 1 ) {
 #'   getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 3 , nSamples = 4  )
 #'   getPkData( getExamplePkModel() , 0:5 , nSubjectsPerScheme = 7 , nSamples = 1  ) 
 #' @export
-getPkData                      <-  function( pkModel , timePoints , nSubjectsPerScheme , nSamples , errorCorrelationMatrixIntime = diag( 1 , length( timePoints ) ) , nCores = 1  ) {
-  
+getPkData                      <-  function( pkModel , timePoints , nSubjectsPerScheme , nSamples , errorCorrelationMatrixIntime = diag( 1 , length( timePoints ) ) , nCores = 1 , 
+  dirIntermediateOutput = NULL ) {
+#  
 #  boolWriteDown                <<-  ! is.null( dirIntermediateOutput ) 
 #  dirIntermediateOutput        <<- dirIntermediateOutput
   
   
      # debug write down 
-  boolWriteDown   <-  FALSE
-  dirIntermediateOutput <-  ""
 #  if( boolWriteDown ){
 #    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState0.rds")  )
 #  }
-  
+#  
  
   ## extract info for calculation
   nTimePoints                  <-  length( timePoints )
@@ -703,9 +703,9 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
   
   
   # debug write down 
-  if( boolWriteDown ){
-    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState1.rds")  )
-  }
+#  if( boolWriteDown ){
+#    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState1.rds")  )
+#  }
     
   ## simulate subject specific parameters (of nonNA parameters)
   boolNoParam                  <-  ( length( parameterVectorNoNA ) == 0 )
@@ -718,12 +718,12 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
     allIndividualParameters     <-  individualParamNoSample
   }
 
-  # debug write down 
-  if( boolWriteDown ){
-    saveRDS( object = allIndividualParameters , file.path( dirIntermediateOutput , "indivParameters.rds")  )
-    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState2.rds")  )
-    
-  }
+#  # debug write down 
+#  if( boolWriteDown ){
+#    saveRDS( object = allIndividualParameters , file.path( dirIntermediateOutput , "indivParameters.rds")  )
+#    saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState2.rds")  )
+#    
+#  }
   
 
   # get individual curves 
@@ -748,11 +748,11 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
    individualPkCurves           <-  matrix( individualPkCurvesVec , byrow = TRUE , nrow = nTotalSubjects)
 }
   
-  # debug write down 
-   if( boolWriteDown ){
-     saveRDS( object = individualPkCurves , file.path( dirIntermediateOutput , "individualPkCurves.rds")  ) 
-     saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState3.rds")  ) 
-  }
+#  # debug write down 
+#   if( boolWriteDown ){
+#     saveRDS( object = individualPkCurves , file.path( dirIntermediateOutput , "individualPkCurves.rds")  ) 
+#     saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState3.rds")  ) 
+#  }
 
   
   ## subset on original time points (get out dosing times )
@@ -766,11 +766,11 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
   colnames( individualPkCurvesTimeSelect )  <-  paste0( "timePoint" , 1:nTimePoints )
   
   ## add additive error # TODO difference here check all inputs
-  if( boolWriteDown ){
-    saveRDS( object = individualPkCurvesTimeSelect , file.path( dirIntermediateOutput , "individualPkCurvesTimeSelect.rds")  ) 
-    saveRDS( object = getCoeffVariationError( pkModel ) , file.path( dirIntermediateOutput , "coeffVarError.rds")  ) 
-    saveRDS( object = errorCorrelationMatrixIntime , file.path( dirIntermediateOutput , "errorCorrelationMatrixIntime.rds")  )    
-  }
+#  if( boolWriteDown ){
+#    saveRDS( object = individualPkCurvesTimeSelect , file.path( dirIntermediateOutput , "individualPkCurvesTimeSelect.rds")  ) 
+#    saveRDS( object = getCoeffVariationError( pkModel ) , file.path( dirIntermediateOutput , "coeffVarError.rds")  ) 
+#    saveRDS( object = errorCorrelationMatrixIntime , file.path( dirIntermediateOutput , "errorCorrelationMatrixIntime.rds")  )    
+#  }
   
   individualCurvesWithError                 <-  addAdditiveErrorToPkMatrix( individualPkCurvesTimeSelect ,
       coeffVariation  = getCoeffVariationError( pkModel ) ,
@@ -778,12 +778,12 @@ getPkData                      <-  function( pkModel , timePoints , nSubjectsPer
       )
       
       
-      # debug write down 
-      if( boolWriteDown ){
-        saveRDS( object = individualCurvesWithError , file.path( dirIntermediateOutput , "individualCurvesWithError.rds")  ) 
-        saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState4.rds")  ) 
-      } 
-  
+#      # debug write down 
+#      if( boolWriteDown ){
+#        saveRDS( object = individualCurvesWithError , file.path( dirIntermediateOutput , "individualCurvesWithError.rds")  ) 
+#        saveRDS( object = .Random.seed , file.path( dirIntermediateOutput , "seedState4.rds")  ) 
+#      } 
+#  
   
   dataArray                    <-  array( individualCurvesWithError , dim = c( nSubjectsPerScheme , nSamples , nTimePoints  )  )
   dataArrayFormat              <-  aperm( dataArray , c( 1 , 3 , 2 ) )

@@ -23,7 +23,7 @@ rankedSetOfSchemesOrig         <-  readRDS( rankedSetOfschemesFile )
 
 ### generate new data 
 
-
+suppressWarnings(RNGversion("3.5.0"))
 set.seed( seed , kind = "Mersenne-Twister", normal.kind = "Inversion") # change to
 exSetOfSchemes             <-  getExampleSetOfSchemes()
 pkDataFSOS                 <-  getPkData( getExamplePkModel() , getTimePoints(exSetOfSchemes) ,  
