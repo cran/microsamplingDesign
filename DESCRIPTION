@@ -1,7 +1,7 @@
 Package: microsamplingDesign
 Title: Finding Optimal Microsampling Designs for Non-Compartmental
         Pharmacokinetic Analysis
-Version: 1.0.6
+Version: 1.0.7
 License: GPL-3
 Authors@R: c( person("Adriaan", "Blommaert", role = c("aut", "cre"),
                      email = "adriaan.blommaert@openanalytics.eu"),
@@ -45,7 +45,7 @@ Collate: 'RcppExports.R' 'aaaGenerics.R' 'appFunctions.R'
         'timePointGeneration.R'
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2019-03-20 14:51:53 UTC; ablommaert
+Packaged: 2020-04-05 19:09:14 UTC; ablommaert
 Author: Adriaan Blommaert [aut, cre],
   Daan Seynaeve [ctb],
   Helen Barnett [ctb],
@@ -54,4 +54,4 @@ Author: Adriaan Blommaert [aut, cre],
   Fetene Tekle [ctb],
   Thomas Jaki [ctb]
 Repository: CRAN
-Date/Publication: 2019-03-20 15:50:03 UTC
+Date/Publication: 2020-04-05 19:30:02 UTC

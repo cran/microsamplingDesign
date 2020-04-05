@@ -23,7 +23,7 @@ construct a 2 compartmental \code{\link{PkModel-class}} by providing parameters 
 model function is \code{\link{get2ComptModelCurve}}
 }
 \examples{
-  dosingInfo              <-  data.frame( time = 0 , dose = 1 )
+  dosingInfo              <-  data.frame( time = 0 , dose = 1)
   dataParametersFile      <-  system.file(  "extData",
  "examplePkParameters.csv" ,   package = "microsamplingDesign" )
   exampleParameters       <-  read.csv( dataParametersFile ,

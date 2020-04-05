@@ -172,7 +172,7 @@ getPkModels               <-  function( object , outputDirectory = NULL ){
   nPkModelScenarios         <- nrow( allCombinations ) 
   
    ## empty parameter model
-  emptyParameters           <-  data.frame( parameter = parameterNames ,value = NA , coeffVariation = NA   )  
+  emptyParameters           <-  data.frame( parameter = parameterNames ,value = NA , coeffVariation = NA , stringsAsFactors = TRUE  )  
   baseModel                 <-  new( "PkModel" ,
       modelFunction       =  getModelFunction( object ) ,
       parameters          =  emptyParameters ,
@@ -195,7 +195,8 @@ getPkModels               <-  function( object , outputDirectory = NULL ){
     modelParameters          <-  data.frame(
       parameter        =  unname( parameterNames ) , 
       value            =  as.numeric( allValueCombinations[ iValue , parameterNames ] ) , 
-      coeffVariation   =  as.numeric( allCVCombinations[    iCV    , parameterNames   ] )
+      coeffVariation   =  as.numeric( allCVCombinations[    iCV    , parameterNames   ] ),
+      stringsAsFactors = TRUE
     )
     setParameters( pkModel )  <-  modelParameters 
     setCoeffVariationError( pkModel )  <-  additiveErrorOptions[ iAddError ]
@@ -482,7 +483,7 @@ if( 0 == 1 ){
 getSummaryRanks                    <-  function( rankingOverview , names ,  summaryFunction  ) {
   summaryOverObjectives            <-  apply( rankingOverview , 1 , summaryFunction )
   orderSmallToLarge                <-  order( summaryOverObjectives , method = "radix" )
-  summaryRanks                     <-  data.frame( name = names , criterion = summaryOverObjectives )[ orderSmallToLarge , ]
+  summaryRanks                     <-  data.frame( name = names , criterion = summaryOverObjectives , stringsAsFactors = TRUE )[ orderSmallToLarge , ]
   summaryRanks$rank                <-  seq_along( names) 
   summaryRanks
 }

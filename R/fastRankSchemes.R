@@ -105,7 +105,7 @@ fastRankSchemes       <-  function( object  , pkData, objective ,  nCores  = 1  
     rankingSort               <-  ranking[ orderSchemes , ]
     ranks                     <-  seq_len( nSchemes)
     rankingSort[ , 5]         <-  ranks
-    rankingSortFrame          <-  data.frame( rankingSort )
+    rankingSortFrame          <-  data.frame( rankingSort , stringsAsFactors = TRUE)
     rankingSortFrame[["name"]] <-  as.factor( paste0( "scheme" , rankingSortFrame[["name"]] ) )
     outputSchemes             <-  object
     outputSchemes@ranking     <-  rankingSortFrame # no validation testing

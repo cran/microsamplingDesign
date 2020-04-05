@@ -141,7 +141,8 @@ getPkModelArticle       <- function() {
       parameter                   =  c( "volume"              , "Ka"                       , "Ke" ) ,
       description                 =  c( "volumeplasma"  , "absorption coefficient"   , "excretion coefficient" ) ,
       value                       =  c( 15  , 2 ,  0.25 ) ,
-      varianceRandomEffects       =  c( 0.1 , 1 , 0.25  ) 
+      varianceRandomEffects       =  c( 0.1 , 1 , 0.25  ) ,
+      stringsAsFactors = TRUE
   ) 
   
   doseArticle                 <-  100
@@ -154,10 +155,11 @@ getPkModelArticle       <- function() {
   parametrizationPackage      <-  data.frame(
       parameter                  =  parameterNames ,
       value                      =  getExpectationHB( beta = betaVector , sHat2 = sHat2Vector ) ,
-      coeffVariation             =  getCoefVariationHB( beta = betaVector , sHat2 = sHat2Vector )
+      coeffVariation             =  getCoefVariationHB( beta = betaVector , sHat2 = sHat2Vector ), 
+      stringsAsFactors = TRUE
   )
   
-  dosingInfoModel             <-  data.frame( time = 0 , dose = doseArticle )
+  dosingInfoModel             <-  data.frame( time = 0 , dose = doseArticle , stringsAsFactors = TRUE )
   
   ## correlation between parameters 
   
@@ -292,7 +294,7 @@ get2ComptModelCurve                  <-  function( parameters , time , dosingInf
  
   ##  format dosing information
   dosingEvents                <-  data.frame( var = "gutDose" , time = dosingInfo[ , "time" ] , 
-      value =  dosingInfo[ , "dose" ], method = "add" )
+      value =  dosingInfo[ , "dose" ], method = "add", stringsAsFactors = TRUE )
   
   ## initial conditions -- all zero dosing info completely in "dosingInfo"
   yInit                               <-  c( gutDose = 0 , plasmaConcentration = 0 , tissueConcentration = 0   )
@@ -337,7 +339,7 @@ getMMCurve              <-  function( x , Vmax  , kappaMM , constantValue = NA  
     kappaMM             <-  NA
   }
   rate                  <-  velocity * x
-  data.frame( x = x , velocity = velocity , rate = rate , Vmax = Vmax , kappaMM = kappaMM )
+  data.frame( x = x , velocity = velocity , rate = rate , Vmax = Vmax , kappaMM = kappaMM , stringsAsFactors = TRUE)
 }
 getMMRateFast      <-  function(  x , Vmax  , kappaMM , constantValue = NA  ){
   ifelse( is.na(constantValue) ,  Vmax / ( kappaMM + x ) * x , constantValue * x ) 
@@ -454,8 +456,8 @@ plotMMCurve             <-  function( dataInput , parameter ) {
   longData              <-  melt( dataSelect , id.vars = "x" )
   kappa                 <-  dataInput[ 1 ,"kappaMM" ]
   halfVmax              <-  dataInput[ 1 ,"Vmax" ] / 2
-  partHorizonLine       <-  data.frame( x = c( 0 , kappa ) , variable = "halfVmax" , value = rep( halfVmax , 2  ) )
-  partVerticalLine      <-  data.frame( x = rep( kappa , 2 ) , variable = "kappaVertical" , value = c( 0 , halfVmax) )
+  partHorizonLine       <-  data.frame( x = c( 0 , kappa ) , variable = "halfVmax" , value = rep( halfVmax , 2  ) ,stringsAsFactors = TRUE )
+  partVerticalLine      <-  data.frame( x = rep( kappa , 2 ) , variable = "kappaVertical" , value = c( 0 , halfVmax) , stringsAsFactors = TRUE)
   
   dataForPlot           <-  rbind( longData , partHorizonLine , partVerticalLine  )
   

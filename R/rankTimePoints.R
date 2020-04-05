@@ -178,7 +178,7 @@ rankObject.SetOfTimePoints     <-  function( object , pkData ,   nGrid  , nSampl
   ## rank results # TODO skip to matrix from 
   rankTimeOptions             <-  rank( result  ,ties.method = "first" ) 
   namesResult                 <-  
-  ranking                     <-  data.frame( name = names( result ),  criterion = result , rank = rankTimeOptions  )
+  ranking                     <-  data.frame( name = names( result ),  criterion = result , rank = rankTimeOptions , stringsAsFactors = TRUE  )
   rankingSorted               <-  arrange( ranking, rankTimeOptions ) # TODO subset instead of rank 
   
   ## output object 

@@ -211,7 +211,7 @@ if( 0 == 1 ) {
   object        <-  getExampleSetOfSchemes()
   pkData        <-  getPkData( getExamplePkModel() , 
     getTimePoints( object ) , getNSubjects( object ) , nSamples = 10  )
-  objectRanked    <- rankObject(  object ,  pkData  , data.frame(criterion = "auc" , weight = 1) ) 
+  objectRanked    <- rankObject(  object ,  pkData  , data.frame(criterion = "auc" , weight = 1, stringsAsFactors = TRUE) ) 
   object          <-  objectRanked
   
   rank = 3
@@ -240,7 +240,8 @@ extractRank.setOfSchemes             <-  function( object , rank ){
 #'   object        <-  getExampleSetOfSchemes()
 #'   pkData        <-  getPkData( getExamplePkModel() , 
 #'    getTimePoints( object ) , getNSubjects( object ) , nSamples = 10  )
-#'   objectRanked    <- rankObject(  object ,  pkData  , data.frame(criterion = "auc" , weight = 1) ) 
+#'   objectRanked    <- rankObject(  object ,  pkData  ,
+#'     data.frame(criterion = "auc" , weight = 1 , stringsAsFactors = TRUE) ) 
 #'  extractByRank( object = objectRanked  , rank = 1 )
 #'  extractByRank( objectRanked  , rank = 5 )
 #' @export 

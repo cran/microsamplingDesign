@@ -98,7 +98,7 @@ getSetOfSchemes            <-  function( minNSubjects , maxNSubjects , minObsPer
   nTimePoints                   <-  length( timePoints )
   
   # constraints 
-  minimalConstraint             <-  data.frame( check = "minObsPerTimePoint" , level = "scheme" , value = 1 ) 
+  minimalConstraint             <-  data.frame( check = "minObsPerTimePoint" , level = "scheme" , value = 1 , stringsAsFactors = TRUE) 
   if( is.null( constraints ) ) {
     constraintsSet              <-  minimalConstraint
   } else {

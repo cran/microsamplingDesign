@@ -114,7 +114,7 @@ if ( 0 == 1) {
   pkData                    <-  getExampleData()
   criterion                 <-  c( "auc" , "cMax" )
   criterionWeights          <-  c( 9 , 1 ) 
-  objective                 <-  data.frame( criterion = criterion , weight = criterionWeights )
+  objective                 <-  data.frame( criterion = criterion , weight = criterionWeights , stringsAsFactors = TRUE )
   varianceMeasure           <-  "var"
   
   rankObject.SetOfSchemes ( object, pkData , getExampleObjective() )
@@ -132,7 +132,7 @@ if ( 0 == 1) {
   
   # check strange result in example 
 	
-	exampleObjective    <-   data.frame( criterion = c( "auc" , "cMax" , "tMax" )  , weight = c( 9 , 1, 1 ) ) 
+	exampleObjective    <-   data.frame( criterion = c( "auc" , "cMax" , "tMax" )  , weight = c( 9 , 1, 1 ) , stringsAsFactors = TRUE ) 
 	object = setOfSchemes 
 	pkData = pkData 
 	objective = exampleObjective 
@@ -144,10 +144,10 @@ if ( 0 == 1) {
  object = setOfSchemes
  pkData = dataForSchemes 
  objective = data.frame(
-          criterion = "auc" , weight = 1 ) 
+          criterion = "auc" , weight = 1, stringsAsFactors = TRUE ) 
       
       objective = data.frame(
-          criterion = c("auc" , "cMax") , weight = c(0.6 , 0.4) )
+          criterion = c("auc" , "cMax") , weight = c(0.6 , 0.4) , stringsAsFactors = TRUE )
       varianceMeasure = "var" 
       scaleWith = "max" 
       nCores = 1 
@@ -157,7 +157,7 @@ if ( 0 == 1) {
 
 object <-  setOfSchemes 
 pkData <-  dataForSchemes 
-    objective <-  data.frame( criterion = "auc" , weight = 1 ) 
+    objective <-  data.frame( criterion = "auc" , weight = 1, stringsAsFactors = TRUE ) 
     skipTests = FALSE 
     nCores = 1 
     varianceMeasure = "var"
@@ -235,7 +235,7 @@ rankObject.SetOfSchemes        <-  function( object  , pkData, objective , varia
 #    rankSchemes                <-  rank( scaledResult , ties.method = "first" ) 
 
 #    ranking                    <-  data.frame( scheme = schemeNames , result , scaledResult , rank = rankSchemes)  #result is a vector here 
-    ranking                    <-  data.frame( name = schemeNames , result , scaledResult , rank = 0 )[ orderSchemes ,  ]  
+    ranking                    <-  data.frame( name = schemeNames , result , scaledResult , rank = 0 , stringsAsFactors = TRUE)[ orderSchemes ,  ]  
     ranking$rank               <-  seq_len( nSchemes )
 #    colnames( ranking )        <-  c( "scheme" , paste0(varianceMeasure ,   "_" , objective$criterion  , c("" , "_scaled") ) , "rank" )  
     colnames( ranking )        <-  c( "name" , paste0(varianceMeasure ,   "_" , objective$criterion  , c("" , "_scaled") ) , "rank" )  
@@ -256,7 +256,7 @@ rankObject.SetOfSchemes        <-  function( object  , pkData, objective , varia
     #  output element = "object with filled up slot in ranks"
 #    rankSchemes               <-  rank( resultCombined , ties.method = "first" ) 
     
-    ranking                   <-  data.frame( name = schemeNames , result ,  criterion = resultCombined , rank = 0 )[ orderSchemes , ]
+    ranking                   <-  data.frame( name = schemeNames , result ,  criterion = resultCombined , rank = 0,  stringsAsFactors = TRUE)[ orderSchemes , ]
     ranks                     <-  seq_len( nSchemes)
     ranking$rank              <-  ranks
     rownames( ranking )       <-  ranks
@@ -414,7 +414,7 @@ setMethod(f = "rankObject",
 #' example objective function for \code{\link{rankObject}} 
 #' @export 
 getExampleObjective             <-  function() {
-	objective = data.frame( criterion = c( "auc" , "cMax" , "tMax" ) , weight = c(9,1,1) ) 
+	objective = data.frame( criterion = c( "auc" , "cMax" , "tMax" ) , weight = c(9,1,1) , stringsAsFactors = TRUE ) 
 	return( objective )
 }
 

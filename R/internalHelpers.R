@@ -280,7 +280,7 @@ getCombinationsWithMaxNRepetitions    <-  function( sourceVector , nDraws , maxR
    colnames( dataFlat )            <-  timeNames
    schemeField                     <-  rep( schemeNames , rep( nSubjects , nSchemes ) )
    subjectField                    <-  rep( subjectNames , nSchemes  )
-   infoColumns                     <-  data.frame( scheme = schemeField , subject =  subjectField )
+   infoColumns                     <-  data.frame( scheme = schemeField , subject =  subjectField , stringsAsFactors = TRUE)
    dataFlattened                   <-  cbind( infoColumns , dataFlat ) 
  }
  

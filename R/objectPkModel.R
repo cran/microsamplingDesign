@@ -49,7 +49,7 @@ getExamplePkModel          <-  function( ) {
       parameters              = exampleParameters ,
       correlationMatrix       =  correlationMatrix ,
       coeffVariationError     =  0.1 , 
-      dosingInfo  = data.frame( time = c( 0 , 2 ) , dose = c( 20 , 30 )   )
+      dosingInfo  = data.frame( time = c( 0 , 2 ) , dose = c( 20 , 30 )  , stringsAsFactors = TRUE )
   )
   return( pkModel )
 }
@@ -63,7 +63,7 @@ getExamplePkModel          <-  function( ) {
 #' @param  coeffVariationError  see \code{\link{PkModel-class}} , defaults to 0
 #' @note model function is \code{\link{get2ComptModelCurve}}
 #' @examples 
-#'   dosingInfo              <-  data.frame( time = 0 , dose = 1 )
+#'   dosingInfo              <-  data.frame( time = 0 , dose = 1)
 #'   dataParametersFile      <-  system.file(  "extData",
 #'  "examplePkParameters.csv" ,   package = "microsamplingDesign" )
 #'   exampleParameters       <-  read.csv( dataParametersFile ,
@@ -419,7 +419,7 @@ plotPkData                 <-  function( object , nCurves = NULL , nSamplesInteg
     subject = rep( 1 : nCurvesSelect , rep( nTimes , nCurvesSelect ) ) ,
     time = rep( times , nCurvesSelect)   ,
     concentration  = exampleCurvesVector ,
-    curve      = "sample curve" 
+    curve      = "sample curve" , stringsAsFactors = TRUE  
   )
   
   ## set seed (to use with plotObject of signature pkModel )
@@ -434,7 +434,7 @@ plotPkData                 <-  function( object , nCurves = NULL , nSamplesInteg
       subject =  NA ,
       time = times ,
       concentration = as.vector( popAveragedcurve ) , 
-      curve = " averaged curve" 
+      curve = " averaged curve"  , stringsAsFactors = TRUE
     )
     plotData                  <-  rbind( curveDataPlot , avCurve ) 
     lineWidth                 <-  c( 1.75 , 3 )

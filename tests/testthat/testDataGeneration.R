@@ -18,7 +18,7 @@ seed                    <-  readRDS( seedFile )
 pkDataOrigFile          <-  system.file( "dataForTesting" , "pkData.rds" , package = "microsamplingDesign" ) 
 
 
-pkDataOrig              <-  readRDS( pkDataOrigFile )
+pkDataOrig              <-  readRDS( pkDataOrigFile)
 
 
 ### generate New data ( same inputs, tests for same outputs )
